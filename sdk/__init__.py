@@ -26,14 +26,14 @@ class TrainingsetClient:
             return r.json()
         else:
             try:
-                error = r.json()['error']
+                error = r.json()
             except ValueError:
                 error = r.text
             if r.status_code == 400:
                 raise TrainingsetInvalidRequest(
-                    error["message"], error["code"])
+                    error["message"], r.status_code)
             else:
-                raise TrainingsetException(error["message"], error["code"])
+                raise TrainingsetException(error["message"], r.status_code)
 
     def _post_request(self, endpoint, data):
         r = self.session.post(BASE_URL + endpoint, json=data)
@@ -42,14 +42,14 @@ class TrainingsetClient:
             return r.json()
         else:
             try:
-                error = r.json()['error']
+                error = r.json()
             except ValueError:
                 error = r.text
             if r.status_code == 400:
                 raise TrainingsetInvalidRequest(
-                    error["message"], error["code"])
+                    error["message"], r.status_code)
             else:
-                raise TrainingsetException(error["message"], error["code"])
+                raise TrainingsetException(error["message"], r.status_code)
 
     def get_tasks(self, parameters: object = {}):
         """
