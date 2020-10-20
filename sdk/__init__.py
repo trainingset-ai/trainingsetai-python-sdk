@@ -1,7 +1,6 @@
 import requests
 
 BASE_URL = "https://api.trainingset.ai/api"
-BASE_URL = "http://localhost:8081/api"
 
 
 class TrainingsetException(Exception):
