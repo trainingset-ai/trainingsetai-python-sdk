@@ -51,7 +51,7 @@ class TrainingsetClient:
             else:
                 raise TrainingsetException(error["message"], error["code"])
 
-    def get_tasks(self, parameters: object):
+    def get_tasks(self, parameters: object = {}):
         """
         Returns a list of tasks.
 
