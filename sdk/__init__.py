@@ -1,6 +1,7 @@
 import requests
 
 BASE_URL = "https://api.trainingset.ai/api"
+BASE_URL = "http://localhost:8081/api"
 
 
 class TrainingsetException(Exception):
@@ -51,7 +52,7 @@ class TrainingsetClient:
             else:
                 raise TrainingsetException(error["message"], r.status_code)
 
-    def get_tasks(self, parameters: object = {}):
+    def get_tasks(self, parameters={}):
         """
         Returns a list of tasks.
 
@@ -82,14 +83,14 @@ class TrainingsetClient:
         """
         return self._get_request("/task/by-custom-filter", parameters)
 
-    def delete_task(self, task_id: str):
+    def delete_task(self, task_id):
         """
         Deletes a task.
         """
         response = self.session.delete(BASE_URL + "/task/" + task_id)
         return response.json()
 
-    def create_box_annotation_task(self, task: object):
+    def create_box_annotation_task(self, task):
         """
         Creates a box type annotation task.
 
@@ -118,7 +119,7 @@ class TrainingsetClient:
         """
         return self._post_request("/task/annotation/box", task)
 
-    def create_line_annotation_task(self, task: object):
+    def create_line_annotation_task(self, task):
         """
         Creates a line type annotation task.
 
@@ -147,7 +148,7 @@ class TrainingsetClient:
         """
         return self._post_request("/task/annotation/line", task)
 
-    def create_polygon_annotation_task(self, task: object):
+    def create_polygon_annotation_task(self, task):
         """
         Creates a line type annotation task.
 
@@ -176,7 +177,7 @@ class TrainingsetClient:
         """
         return self._post_request("/task/annotation/polygon", task)
 
-    def create_point_annotation_task(self, task: object):
+    def create_point_annotation_task(self, task):
         """
         Creates a line type annotation task.
 
@@ -201,7 +202,7 @@ class TrainingsetClient:
         """
         return self._post_request("/task/annotation/point", task)
 
-    def create_point_cloud_annotation_task(self, task: object):
+    def create_point_cloud_annotation_task(self, task):
         """
         Creates a line type annotation task.
 
@@ -226,7 +227,7 @@ class TrainingsetClient:
         """
         return self._post_request("/task/annotation/pcd", task)
 
-    def create_segmentation_task(self, task: object):
+    def create_segmentation_task(self, task):
         """
         Creates a line type annotation task.
 
@@ -251,7 +252,7 @@ class TrainingsetClient:
         """
         return self._post_request("/task/annotation/segmentation", task)
 
-    def create_image_categorization_task(self, task: object):
+    def create_image_categorization_task(self, task):
         """
         Creates a line type annotation task.
 
@@ -276,7 +277,7 @@ class TrainingsetClient:
         """
         return self._post_request("/task/categorization/image", task)
 
-    def create_project(self, project_name: str):
+    def create_project(self, project_name):
         """
         Creates a new project.
         """
@@ -288,7 +289,7 @@ class TrainingsetClient:
         """
         return self._get_request("/project")
 
-    def delete_project(self, project_id: str):
+    def delete_project(self, project_id):
         """
         Deletes a project by it's identifier.
         """
