@@ -51,65 +51,246 @@ class TrainingsetClient:
             else:
                 raise TrainingsetException(error["message"], error["code"])
 
-    def get_tasks(self, parameters):
+    def get_tasks(self, parameters: object):
         """
         Returns a list of tasks.
 
-        List of parameters, all of them are optional:
+        parameters object:
 
-        sort: [["attribute_name",1 or -1]], example: [["_id",1]], 1 is ascending, -1 is descending
+        `sort`: [["attribute_name",1 or -1]], example: [["_id",1]], 1 is ascending, -1 is descending
 
-        rangeStart: YYYY-MM-DD, example: "2020-01-31"
+        `rangeStart`: YYYY-MM-DD, example: "2020-01-31"
 
-        rangeEnd: YYYY-MM-DD, example: "2020-12-31"
+        `rangeEnd`: YYYY-MM-DD, example: "2020-12-31"
 
-        type: "annotation-box" | "annotation-line" | "annotation-polygon" | "annotation-box" | "annotation-pcd" | "categorization-image" | "segmentation"
+        `type`: "annotation-box" | "annotation-line" | "annotation-polygon" | "annotation-box" | "annotation-pcd" | "categorization-image" | "segmentation"
 
-        status: "pending" | "completed" | "cancelled" | "error" | "ready" | "working"
+        `status`: "pending" | "completed" | "cancelled" | "error" | "ready" | "working"
 
-        project: string, projectID, example: "5f6359d0838a1d868f54cac4"
+        `project`: string, projectID, example: "5f6359d0838a1d868f54cac4"
 
-        limit: integer
+        `limit`: integer
 
-        skip: integer
+        `skip`: integer
 
-        id: string, ID of the task
+        `id`: string, ID of the task
 
-        qa_status: "accepted" | "pending" | "rejected"
+        `qa_status`: "accepted" | "pending" | "rejected"
+
+        Check the documentation for more info:
+        https://documenter.getpostman.com/view/10426338/Szf9V75M?version=latest#783c6a4f-373a-4559-a68a-30cd98808d73
         """
         return self._get_request("/task/by-custom-filter", parameters)
 
-    def delete_task(self, task_id):
+    def delete_task(self, task_id: str):
+        """
+        Deletes a task.
+        """
         response = self.session.delete(BASE_URL + "/task/" + task_id)
         return response.json()
 
-    def create_box_annotation_task(self, data):
-        return self._post_request("/task/annotation/box", data)
+    def create_box_annotation_task(self, task: object):
+        """
+        Creates a box type annotation task.
 
-    def create_line_annotation_task(self, data):
-        return self._post_request("/task/annotation/line", data)
+        task object:
 
-    def create_polygon_annotation_task(self, data):
-        return self._post_request("/task/annotation/polygon", data)
+        `instructions`: Instructions for drawing the task (Required) (String)
 
-    def create_point_annotation_task(self, data):
-        return self._post_request("/task/annotation/point", data)
+        `attachment_url`: HTTP/HTTPS Image address where the drawing of the task is carried out (Required) (String)
 
-    def create_point_cloud_annotation_task(self, data):
-        return self._post_request("/task/annotation/pcd", data)
+        `min_height`: Minimum height of each box drawn in the task (Optional) (Number)
 
-    def create_segmentation_task(self, data):
-        return self._post_request("/task/annotation/segmentation", data)
+        `min_width`: Minimum width of each box drawn in the task (Optional) (Number)
 
-    def create_image_categorization_task(self, data):
-        return self._post_request("/task/categorization/image", data)
+        `with_labels`: Define if the task has tags (Optional) (Boolean)
 
-    def create_project(self, project_name):
+        `objects_to_annotate`: List of objects to be annotated (Optional) (AnnotationObject Array)
+
+        `project`: Name of the project that belongs to the task (Optional) (String)
+
+        `callback_url`: URL to which you will get task results delivered (Optional) (String)
+
+        `automatic_prelabel`: Automatically prelabel the picture (Optional) (Boolean)
+
+        Check the documentation for more info:
+        https://documenter.getpostman.com/view/10426338/Szf9V75M?version=latest#783c6a4f-373a-4559-a68a-30cd98808d73
+        """
+        return self._post_request("/task/annotation/box", task)
+
+    def create_line_annotation_task(self, task: object):
+        """
+        Creates a line type annotation task.
+
+        task object:
+
+        `instructions`: Instructions for drawing the task (Required) (String)
+
+        `attachment_url`: HTTP/HTTPS Image address where the drawing of the task is carried out (Required) (String)
+
+        `min_vertices`: Minimum number of vertices that a polygon drawn in the task must have (Optional)(Number)
+
+        `max_vertices`: Maximum number of vertices that a polygon drawn in the task must have (Optional)(Number)
+
+        `with_labels`: Define if the task has tags (Optional) (Boolean)
+
+        `objects_to_annotate`: List of objects to be annotated (Optional) (AnnotationObject Array)
+
+        `project`: Name of the project that belongs to the task (Optional) (String)
+
+        `callback_url`: URL to which you will get task results delivered (Optional) (String)
+
+        `automatic_prelabel`: Automatically prelabel the picture (Optional) (Boolean)
+
+        Check the documentation for more info:
+        https://documenter.getpostman.com/view/10426338/Szf9V75M?version=latest#783c6a4f-373a-4559-a68a-30cd98808d73
+        """
+        return self._post_request("/task/annotation/line", task)
+
+    def create_polygon_annotation_task(self, task: object):
+        """
+        Creates a line type annotation task.
+
+        task object:
+
+        `instructions`: Instructions for drawing the task (Required) (String)
+
+        `attachment_url`: HTTP/HTTPS Image address where the drawing of the task is carried out (Required) (String)
+
+        `min_vertices`: Minimum number of vertices that a polygon drawn in the task must have (Optional)(Number)
+
+        `max_vertices`: Maximum number of vertices that a polygon drawn in the task must have (Optional)(Number)
+
+        `with_labels`: Define if the task has tags (Optional) (Boolean)
+
+        `objects_to_annotate`: List of objects to be annotated (Optional) (AnnotationObject Array)
+
+        `project`: Name of the project that belongs to the task (Optional) (String)
+
+        `callback_url`: URL to which you will get task results delivered (Optional) (String)
+
+        `automatic_prelabel`: Automatically prelabel the picture (Optional) (Boolean)
+
+        Check the documentation for more info:
+        https://documenter.getpostman.com/view/10426338/Szf9V75M?version=latest#783c6a4f-373a-4559-a68a-30cd98808d73
+        """
+        return self._post_request("/task/annotation/polygon", task)
+
+    def create_point_annotation_task(self, task: object):
+        """
+        Creates a line type annotation task.
+
+        task object:
+
+        `instructions`: Instructions for drawing the task (Required) (String)
+
+        `attachment_url`: HTTP/HTTPS Image address where the drawing of the task is carried out (Required) (String)
+
+        `with_labels`: Define if the task has tags (Optional) (Boolean)
+
+        `objects_to_annotate`: List of objects to be annotated (Optional) (AnnotationObject Array)
+
+        `project`: Name of the project that belongs to the task (Optional) (String)
+
+        `callback_url`: URL to which you will get task results delivered (Optional) (String)
+
+        `automatic_prelabel`: Automatically prelabel the picture (Optional) (Boolean)
+
+        Check the documentation for more info:
+        https://documenter.getpostman.com/view/10426338/Szf9V75M?version=latest#783c6a4f-373a-4559-a68a-30cd98808d73
+        """
+        return self._post_request("/task/annotation/point", task)
+
+    def create_point_cloud_annotation_task(self, task: object):
+        """
+        Creates a line type annotation task.
+
+        task object:
+
+        `instructions`: Instructions for drawing the task (Required) (String)
+
+        `attachment_url`: HTTP/HTTPS Image address where the drawing of the task is carried out (Required) (String)
+
+        `with_labels`: Define if the task has tags (Optional) (Boolean)
+
+        `objects_to_annotate`: List of objects to be annotated (Optional) (AnnotationObject Array)
+
+        `project`: Name of the project that belongs to the task (Optional) (String)
+
+        `callback_url`: URL to which you will get task results delivered (Optional) (String)
+
+        `cameras`: Camera parameters, each camera is an object (Optional) (CameraObject Array)
+
+        Check the documentation for more info:
+        https://documenter.getpostman.com/view/10426338/Szf9V75M?version=latest#783c6a4f-373a-4559-a68a-30cd98808d73
+        """
+        return self._post_request("/task/annotation/pcd", task)
+
+    def create_segmentation_task(self, task: object):
+        """
+        Creates a line type annotation task.
+
+        task object:
+
+        `instructions`: Instructions for drawing the task (Required) (String)
+
+        `attachment_url`: HTTP/HTTPS Image address where the drawing of the task is carried out (Required) (String)
+
+        `with_labels`: Define if the task has tags (Optional) (Boolean)
+
+        `objects_to_annotate`: List of objects to be annotated (Optional) (AnnotationObject Array)
+
+        `project`: Name of the project that belongs to the task (Optional) (String)
+
+        `callback_url`: URL to which you will get task results delivered (Optional) (String)
+
+        `automatic_prelabel`: Automatically prelabel the picture (Optional) (Boolean)
+
+        Check the documentation for more info:
+        https://documenter.getpostman.com/view/10426338/Szf9V75M?version=latest#783c6a4f-373a-4559-a68a-30cd98808d73
+        """
+        return self._post_request("/task/annotation/segmentation", task)
+
+    def create_image_categorization_task(self, task: object):
+        """
+        Creates a line type annotation task.
+
+        task object:
+
+        `instructions`: Instructions for drawing the task (Required) (String)
+
+        `categories`: Categories into which an image can be categorized (Required) (String Array)
+
+        `attachment_url`: HTTP/HTTPS Image address where the drawing of the task is carried out (Required) (String)
+
+        `allow_multiple`: Allow multiple categories to be selected (Optional) (Boolean)
+
+        `with_labels`: Define if the task has tags (Optional) (Boolean)
+
+        `project`: Name of the project that belongs to the task (Optional) (String)
+
+        `callback_url`: URL to which you will get task results delivered (Optional) (String)
+
+        Check the documentation for more info:
+        https://documenter.getpostman.com/view/10426338/Szf9V75M?version=latest#783c6a4f-373a-4559-a68a-30cd98808d73
+        """
+        return self._post_request("/task/categorization/image", task)
+
+    def create_project(self, project_name: str):
+        """
+        Creates a new project.
+        """
         return self._post_request("/project", {"name": project_name})
 
     def get_projects(self):
+        """
+        Fetches a list of projects.
+        """
         return self._get_request("/project")
 
-    def delete_project(self, project_id):
+    def delete_project(self, project_id: str):
+        """
+        Deletes a project by it's identifier.
+        """
         response = self.session.delete(BASE_URL + "/project/" + project_id)
         return response.json()
