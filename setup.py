@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="trainingsetai",
-    version="0.0.1",
+    version="0.0.2",
     author="Trainingset.ai",
     author_email="contactus@trainingset.ai",
     description="The official Python SDK for Trainingset.ai.",
