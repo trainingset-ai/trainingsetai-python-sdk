@@ -11,13 +11,14 @@ setuptools.setup(
     description="The official Python SDK for Trainingset.ai.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/trainingset-ai/trainingset-python-sdk",
+    url="https://github.com/trainingset-ai/trainingsetai-python-sdk",
     packages=setuptools.find_packages(),
     classifiers=[
-        "Programming Language :: Python :: 3",
+        "Programming Language :: Python",
+        "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: MIT License",
-        'Intended Audience :: Developers',
+        "Intended Audience :: Developers",
         "Operating System :: OS Independent",
-        'Topic :: Software Development :: Libraries'
+        "Topic :: Software Development :: Libraries"
     ],
 )
