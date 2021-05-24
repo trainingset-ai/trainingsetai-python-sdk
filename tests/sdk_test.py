@@ -1,11 +1,10 @@
 import pytest
 from os import environ
-from imp import load_source
-TrainingsetModule = load_source("sdk", "sdk/__init__.py")
+import trainingsetai
 
 try:
     api_key = environ['TRAININGSET_API_KEY']
-    client = TrainingsetModule.TrainingsetClient(api_key)
+    client = trainingsetai.TrainingsetClient(api_key)
 except KeyError:
     raise Exception(
         "TRAININGSET_API_KEY environment variable is not set")

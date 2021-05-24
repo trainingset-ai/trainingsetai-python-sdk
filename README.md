@@ -66,3 +66,23 @@ client.get_projects()
 client.create_project("test_project")
 client.delete_project("project_id")
 ```
+
+# Running tests
+
+Install pytest:
+
+```sh
+pip install --user pytest
+```
+
+Run the test:
+
+```sh
+pytest
+```
+
+In case pytest script was not added to your path, try the following:
+
+```sh
+python3 -m pytest
+```
