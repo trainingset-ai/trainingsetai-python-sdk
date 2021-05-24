@@ -33,7 +33,7 @@ class TrainingsetClient:
                 raise TrainingsetInvalidRequest(
                     error["message"], r.status_code)
             else:
-                raise TrainingsetException(error["message"], r.status_code)
+                raise TrainingsetException(error, r.status_code)
 
     def _post_request(self, endpoint, data):
         r = self.session.post(BASE_URL + endpoint, json=data)
@@ -49,7 +49,7 @@ class TrainingsetClient:
                 raise TrainingsetInvalidRequest(
                     error["message"], r.status_code)
             else:
-                raise TrainingsetException(error["message"], r.status_code)
+                raise TrainingsetException(error, r.status_code)
 
     def get_tasks(self, parameters={}):
         """
@@ -276,11 +276,17 @@ class TrainingsetClient:
         """
         return self._post_request("/task/categorization/image", task)
 
-    def create_project(self, project_name):
+    def create_project(self, project_name, summary, instructions, automatic_prelabel, automatic_label):
         """
         Creates a new project.
         """
-        return self._post_request("/project", {"name": project_name})
+        return self._post_request("/project", {
+            "name": project_name,
+            "summary": summary,
+            "instructions": instructions,
+            "automatic_prelabel": automatic_prelabel,
+            "automatic_label": automatic_label,
+        })
 
     def get_projects(self):
         """

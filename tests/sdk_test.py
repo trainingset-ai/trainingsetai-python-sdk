@@ -82,7 +82,8 @@ def test_delete():
 
 
 def test_create_project():
-    client.create_project("pytest project")
+    client.create_project(
+        "pytest project", "pytest project summary", "task instructions", False, False)
 
 
 TEST_DELETE_PROJECT_ID = ""
